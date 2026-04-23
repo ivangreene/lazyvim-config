@@ -3,3 +3,5 @@
 -- Add any additional keymaps here
 vim.keymap.set({ "n", "x" }, "''", '"+', { desc = "Use system clipboard" })
 vim.keymap.set({ "n" }, "-", ":Neotree<cr>", { desc = "Open tree", silent = true })
+vim.api.nvim_set_keymap("n", "<leader>yf", [[:let @+=expand('%:.')<CR>]], { desc = "Copy relative file path" })
+vim.api.nvim_set_keymap("n", "<leader>yF", [[:let @+=expand('%:p')<CR>]], { desc = "Copy full file path" })
