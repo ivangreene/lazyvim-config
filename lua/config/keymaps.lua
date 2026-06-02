@@ -7,7 +7,7 @@ vim.api.nvim_set_keymap("n", "<leader>yf", [[:let @+=expand('%:.')<CR>]], { desc
 vim.api.nvim_set_keymap("n", "<leader>yF", [[:let @+=expand('%:p')<CR>]], { desc = "Copy full file path" })
 
 -- Pick files changed on this branch (vs merge-base with origin/main)
-vim.keymap.set("n", "<leader>gB", function()
+vim.keymap.set("n", "<leader>fG", function()
   local root = vim.fs.root(0, ".git") or vim.uv.cwd()
   local base = vim.fn.systemlist({ "git", "-C", root, "merge-base", "HEAD", "origin/main" })[1]
   if not base or base == "" then
