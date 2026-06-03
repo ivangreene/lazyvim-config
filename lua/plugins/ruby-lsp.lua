@@ -12,6 +12,9 @@ return {
           },
         },
       },
+      rubocop = {
+        enabled = false,
+      },
     },
   },
 }
