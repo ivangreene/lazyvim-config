@@ -5,6 +5,7 @@ vim.keymap.set({ "n", "x" }, "''", '"+', { desc = "Use system clipboard" })
 vim.keymap.set({ "n" }, "-", ":Neotree<cr>", { desc = "Open tree", silent = true })
 vim.api.nvim_set_keymap("n", "<leader>yf", [[:let @+=expand('%:.')<CR>]], { desc = "Copy relative file path" })
 vim.api.nvim_set_keymap("n", "<leader>yF", [[:let @+=expand('%:p')<CR>]], { desc = "Copy full file path" })
+vim.api.nvim_set_keymap("n", "<leader>yl", [[:let @+=expand('%:.').':'.line('.')<CR>]], { desc = "Copy relative file path with line number" })
 
 -- Always browse the main ref rather than the current branch
 vim.keymap.set({ "n", "x" }, "<leader>gB", function()
