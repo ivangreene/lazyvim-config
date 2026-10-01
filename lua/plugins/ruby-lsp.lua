@@ -3,6 +3,8 @@ return {
   opts = {
     servers = {
       ruby_lsp = {
+        enabled = true,
+        mason = false,
         cmd = { "mise", "exec", "--", "ruby-lsp" },
         init_options = {
           addonSettings = {
