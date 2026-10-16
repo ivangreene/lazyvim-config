@@ -44,3 +44,34 @@ vim.keymap.set("n", "<leader>fG", function()
     format = "file",
   })
 end, { desc = "Changed files on branch" })
+
+local resize_step = 1
+
+local function has_neighbor(direction)
+  return vim.fn.winnr(direction) ~= vim.fn.winnr()
+end
+
+local function move_border(direction)
+  local axis = ({ h = "horizontal", l = "horizontal", j = "vertical", k = "vertical" })[direction]
+  local after, before = "l", "h"
+  local resize_cmd = "vertical resize"
+  if axis == "vertical" then
+    after, before = "j", "k"
+    resize_cmd = "resize"
+  end
+  local grows_when_border_after = direction == after
+  if has_neighbor(after) then
+    vim.cmd(resize_cmd .. (grows_when_border_after and " +" or " -") .. resize_step)
+  elseif has_neighbor(before) then
+    vim.cmd(resize_cmd .. (grows_when_border_after and " -" or " +") .. resize_step)
+  elseif vim.env.TMUX then
+    local tmux_flag = ({ h = "-L", j = "-D", k = "-U", l = "-R" })[direction]
+    vim.fn.system({ "tmux", "resize-pane", tmux_flag, tostring(resize_step) })
+  end
+end
+
+for _, direction in ipairs({ "h", "j", "k", "l" }) do
+  vim.keymap.set("n", "<M-" .. direction:upper() .. ">", function()
+    move_border(direction)
+  end, { desc = "Move split border " .. direction })
+end
