@@ -23,10 +23,10 @@ local function subdue_diff_highlights()
   local bg = normal.bg or (vim.o.background == "dark" and 0x1e1e1e or 0xffffff)
   local green, red, blue = 0x3fb950, 0xf85149, 0x58a6ff
 
-  vim.api.nvim_set_hl(0, "DiffAdd", { bg = blend(green, bg, 0.16) })
-  vim.api.nvim_set_hl(0, "DiffChange", { bg = blend(blue, bg, 0.1) })
-  vim.api.nvim_set_hl(0, "DiffText", { bg = blend(blue, bg, 0.3) })
-  vim.api.nvim_set_hl(0, "DiffDelete", { bg = blend(red, bg, 0.12), fg = blend(red, bg, 0.45) })
+  vim.api.nvim_set_hl(0, "DiffAdd", { bg = blend(green, bg, 0.2) })
+  vim.api.nvim_set_hl(0, "DiffChange", { bg = blend(blue, bg, 0.13) })
+  vim.api.nvim_set_hl(0, "DiffText", { bg = blend(blue, bg, 0.38) })
+  vim.api.nvim_set_hl(0, "DiffDelete", { bg = blend(red, bg, 0.16), fg = blend(red, bg, 0.55) })
 end
 
 vim.api.nvim_create_autocmd("ColorScheme", {
