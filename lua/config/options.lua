@@ -5,3 +5,4 @@ vim.opt.relativenumber = false
 vim.opt.clipboard = ""
 vim.g.autoformat = false
 vim.opt.conceallevel = 0
+vim.opt.listchars = { tab = "> ", trail = "·", nbsp = "+" }

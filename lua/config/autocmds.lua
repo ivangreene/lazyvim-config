@@ -35,3 +35,37 @@ vim.api.nvim_create_autocmd("ColorScheme", {
 })
 
 subdue_diff_highlights()
+
+local function highlight_trailing_whitespace_group()
+  vim.api.nvim_set_hl(0, "TrailingWhitespace", { bg = "#f85149", fg = "#ffffff" })
+end
+
+local function should_match_trailing_whitespace()
+  return vim.bo.buftype == "" and vim.api.nvim_win_get_config(0).relative == ""
+end
+
+local function match_trailing_whitespace()
+  local match_id = vim.w.trailing_whitespace_match
+  local wanted = should_match_trailing_whitespace()
+  if match_id and not wanted then
+    pcall(vim.fn.matchdelete, match_id)
+    vim.w.trailing_whitespace_match = nil
+  elseif wanted and not match_id then
+    vim.w.trailing_whitespace_match = vim.fn.matchadd("TrailingWhitespace", [[\s\+\%#\@<!$]])
+  end
+end
+
+local trailing_whitespace_group = vim.api.nvim_create_augroup("trailing_whitespace", { clear = true })
+
+vim.api.nvim_create_autocmd("ColorScheme", {
+  group = trailing_whitespace_group,
+  callback = highlight_trailing_whitespace_group,
+})
+
+vim.api.nvim_create_autocmd({ "BufWinEnter", "WinEnter" }, {
+  group = trailing_whitespace_group,
+  callback = match_trailing_whitespace,
+})
+
+highlight_trailing_whitespace_group()
+match_trailing_whitespace()
